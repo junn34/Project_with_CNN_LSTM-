@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "딥러닝", "딥러닝\딥러닝.pyproj", "{309FB985-38B3-46E3-BACB-E2C3BB8B9B32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{309FB985-38B3-46E3-BACB-E2C3BB8B9B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309FB985-38B3-46E3-BACB-E2C3BB8B9B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F8F0007-154D-47CA-9E92-BB52D38168CD}
+	EndGlobalSection
+EndGlobal

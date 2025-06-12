@@ -1,0 +1,12 @@
+rank,feature,coef,importance
+1,Food and non-alcoholic beverages,9.808444267,22.07860379
+2,Miscellaneous goods and services,8.769575958,19.74013286
+3,Actual rentals for housing,7.691873044,17.31424604
+4,Maintenance and repair of the dwelling,5.298394851,11.92657647
+5,Education,4.717976993,10.62006796
+6,Energy,3.886752844,8.74899971
+7,Household goods and services,2.334432635,5.254759246
+8,"Alcoholic beverages, tobacco and narcotics",0.657311608,1.479594742
+9,Recreation and culture,0.639146263,1.438704927
+10,Transportation,0.520028053,1.170572317
+11,Water supply and misc. services relating to dwelling,-0.101174612,0.227741946
