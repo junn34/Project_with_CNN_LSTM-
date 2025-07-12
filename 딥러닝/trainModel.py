@@ -21,7 +21,7 @@ raw_df = pd.read_csv("C:/Users/bjh20/source/repos/딥러닝/딥러닝/merged_dat
 
 lasso_df = pd.read_csv("C:/Users/bjh20/source/repos/딥러닝/딥러닝/lasso_importance_cv_2025.csv")
 selected_features = lasso_df["feature"].head(4).tolist()
-selected_cols = ["Total CPI"] + selected_features
+selected_cols = ["Total CPI", "sentiment_score"] + selected_features
 df = raw_df[selected_cols].dropna()
 
 
@@ -133,7 +133,7 @@ def test(model, test_loader):
 train(model, train_loader, val_loader, epochs=EPOCHS)
 preds, trues = test(model, test_loader)
 
-# 정규화 상태 성능 평가
+#  성능 평가
 def mape(y_true, y_pred):
     return np.mean(np.abs((y_true - y_pred) / (y_true + 1e-8))) * 100
 
@@ -155,17 +155,17 @@ nrmse_val = nrmse(y_true, y_pred)
 r2 = r2_score(y_true, y_pred)
 mse_val = mean_squared_error(y_true, y_pred)
 
-print("\n📊 정규화 상태 성능 평가 결과:")
+print("\n 성능 평가 결과:")
 print(f" RMSE   : {rmse:.4f}")
 print(f" MAE    : {mae:.4f}")
-print(f" MAPE   : {mape_val:.2f}%")
-print(f" SMAPE  : {smape_val:.2f}%")
+print(f" MAPE   : {mape_val:.2f}")
+print(f" SMAPE  : {smape_val:.2f}")
 print(f" NRMSE  : {nrmse_val:.4f}")
 print(f" R²     : {r2:.4f}")
 print(f" MSE    : {mse_val:.6f}")
 
-# 모델 및 스케일러 저장
-# torch.save(model.state_dict(), "cnn_lstm_model.pth")
-# np.save("latest_input.npy", df_daily_scaled.values[-PAST_STEPS:])
-# import joblib
-# joblib.dump(scaler, "scaler.pkl")
+#모델 및 스케일러 저장
+torch.save(model.state_dict(), "cnn_lstm_model.pth")
+np.save("latest_input.npy", df_daily_scaled.values[-PAST_STEPS:])
+import joblib
+joblib.dump(scaler, "scaler.pkl")
