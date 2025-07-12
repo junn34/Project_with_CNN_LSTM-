@@ -41,7 +41,7 @@ class CNNLSTM(nn.Module):
 
 # 모델과 스케일러 불러오기
 scaler = joblib.load("scaler.pkl")
-model = CNNLSTM(input_features=5).to(device)  # ← CUDA로 이동
+model = CNNLSTM(input_features=6).to(device)  # ← CUDA로 이동
 model.load_state_dict(torch.load("cnn_lstm_model.pth", map_location=device))
 model.eval()
 
@@ -49,7 +49,7 @@ model.eval()
 full_scaled = pd.read_csv("C:/Users/bjh20/source/repos/딥러닝/딥러닝/merged_data_2025.csv", parse_dates=["Date"]).set_index("Date")
 lasso_df = pd.read_csv("C:/Users/bjh20/source/repos/딥러닝/딥러닝/lasso_importance_cv_2025.csv")
 selected_features = lasso_df["feature"].head(4).tolist()
-selected_cols = ["Total CPI"] + selected_features
+selected_cols = ["Total CPI", "sentiment_score"] + selected_features
 full_df = full_scaled[selected_cols].dropna()
 
 #  MinMaxScaler 다시 적용
@@ -143,4 +143,4 @@ mape = np.mean(np.abs((true_vals - pred_vals) / true_vals)) * 100
 print(f"예측 성능 평가:")
 print(f"MAE  (평균 절대 오차): {mae:.4f}")
 print(f"RMSE (평균 제곱근 오차): {rmse:.4f}")
-print(f"MAPE (평균 절대 백분율 오차): {mape:.2f}%")
+print(f"MAPE (평균 절대 백분율 오차): {mape:.2f}")

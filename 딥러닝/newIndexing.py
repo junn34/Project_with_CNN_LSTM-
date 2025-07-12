@@ -59,6 +59,13 @@ cpi_df.set_index("Date", inplace=True)
 
 data = pd.concat([cpi_df, data], axis=1)
 
+sentiment_df = pd.read_csv("감성지표.csv",encoding="utf-8-sig")
+sentiment_df = sentiment_df[["date", "sentiment_score"]]
+sentiment_df["date"] = pd.to_datetime(sentiment_df["date"])
+sentiment_df.set_index("date", inplace=True)
+
+data = data.join(sentiment_df, how='left')
+
 output_dir = 'C:/Users/bjh20/source/repos/딥러닝/딥러닝'
 os.makedirs(output_dir, exist_ok=True)
 
