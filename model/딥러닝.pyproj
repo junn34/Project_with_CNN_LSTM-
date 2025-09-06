@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>309fb985-38b3-46e3-bacb-e2c3bb8b9b32</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>trainModel.py</StartupFile>
+    <StartupFile>validationforCore4withoutSenti.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -26,7 +26,13 @@
     <Compile Include="trainModel.py" />
     <Compile Include="main.py" />
     <Compile Include="newIndexing.py" />
+    <Compile Include="trainmodelforCore4withoutSenti.py" />
+    <Compile Include="trainModelWithoutSentiCPI.py" />
+    <Compile Include="trainmodelforCore4.py" />
     <Compile Include="validation.py" />
+    <Compile Include="validationforCore4withoutSenti.py" />
+    <Compile Include="validationWithoutSentiment.py" />
+    <Compile Include="validationforCore4.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CPI.csv" />
@@ -36,6 +42,7 @@
     <Content Include="lasso_importance_2025.csv" />
     <Content Include="lasso_importance_cv_2025.csv" />
     <Content Include="merged_data_2025.csv" />
+    <Content Include="감성지표.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

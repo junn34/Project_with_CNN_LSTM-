@@ -1,0 +1,22 @@
+{
+  "PAST_STEPS": 310,
+  "FUTURE_STEPS": 365,
+  "BATCH_SIZE": 64,
+  "EPOCHS": 50,
+  "HIDDEN_DIM": 512,
+  "KERNEL_SIZE": 3,
+  "DROPOUT": 0.5,
+  "inputs": [
+    "Total CPI",
+    "Food and non-alcoholic beverages",
+    "Miscellaneous goods and services",
+    "Actual rentals for housing",
+    "Maintenance and repair of the dwelling"
+  ],
+  "targets": [
+    "Food and non-alcoholic beverages",
+    "Miscellaneous goods and services",
+    "Actual rentals for housing",
+    "Maintenance and repair of the dwelling"
+  ]
+}

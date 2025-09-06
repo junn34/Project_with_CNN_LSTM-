@@ -1,4 +1,6 @@
-ï»¿import os
+# -*- coding: cp949 -*-
+
+import os
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import Lasso
@@ -16,16 +18,16 @@ FUTURE_STEPS = 365
 BATCH_SIZE = 64
 EPOCHS = 50
 
-raw_df = pd.read_csv("C:/Users/bjh20/source/repos/ë”¥ëŸ¬ë‹/ë”¥ëŸ¬ë‹/merged_data_2025.csv", parse_dates=["Date"]).set_index("Date")
+raw_df = pd.read_csv("C:/Users/bjh20/source/repos/µö·¯´×/µö·¯´×/merged_data_2025.csv", parse_dates=["Date"]).set_index("Date")
 
 
-lasso_df = pd.read_csv("C:/Users/bjh20/source/repos/ë”¥ëŸ¬ë‹/ë”¥ëŸ¬ë‹/lasso_importance_cv_2025.csv")
+lasso_df = pd.read_csv("C:/Users/bjh20/source/repos/µö·¯´×/µö·¯´×/lasso_importance_cv_2025.csv")
 selected_features = lasso_df["feature"].head(4).tolist()
-selected_cols = ["Total CPI", "sentiment_score"] + selected_features
+selected_cols = ["Total CPI"] + selected_features
 df = raw_df[selected_cols].dropna()
 
 
-# ì›”ë³„ ë°ì´í„°ë¥¼ ê° ì›”ì˜ ì¼ìˆ˜ë¡œ í™•ì¥ (ì²«ë‚ ë§Œ ê°’ ìˆê³  ë‚˜ë¨¸ì§€ëŠ” NaN)
+# ¿ùº° µ¥ÀÌÅÍ¸¦ °¢ ¿ùÀÇ ÀÏ¼ö·Î È®Àå (Ã¹³¯¸¸ °ª ÀÖ°í ³ª¸ÓÁö´Â NaN)
 
 
 daily_frames = []
@@ -40,7 +42,7 @@ for date, row in df.iterrows():
     daily_frames.append(temp)
 
 
-# ì—°ê²° í›„ ì„ í˜• ë³´ê°„
+# ¿¬°á ÈÄ ¼±Çü º¸°£
 df_daily = pd.concat(daily_frames)
 df_daily = df_daily.interpolate(method="linear")
 
@@ -51,7 +53,7 @@ df_daily_scaled = pd.DataFrame(scaler.fit_transform(df_daily),
                                index=df_daily.index)
 
 
-# ìŠ¬ë¼ì´ë”© ìœˆë„ìš° êµ¬ì„±
+# ½½¶óÀÌµù À©µµ¿ì ±¸¼º
 data = df_daily_scaled.values
 X_list, Y_list = [], []
 for i in range(len(data) - PAST_STEPS - FUTURE_STEPS):
@@ -96,7 +98,7 @@ class CNNLSTM(nn.Module):
         x = self.dropout(x[:, -1, :])
         return self.fc(x)
 
-# í•™ìŠµ ë° í…ŒìŠ¤íŠ¸
+# ÇĞ½À ¹× Å×½ºÆ®
 model = CNNLSTM(input_features=X_np.shape[2]).to(torch.device("cuda" if torch.cuda.is_available() else "cpu"))
 device = next(model.parameters()).device
 criterion = nn.MSELoss()
@@ -133,7 +135,7 @@ def test(model, test_loader):
 train(model, train_loader, val_loader, epochs=EPOCHS)
 preds, trues = test(model, test_loader)
 
-#  ì„±ëŠ¥ í‰ê°€
+#  ¼º´É Æò°¡
 def mape(y_true, y_pred):
     return np.mean(np.abs((y_true - y_pred) / (y_true + 1e-8))) * 100
 
@@ -155,13 +157,13 @@ nrmse_val = nrmse(y_true, y_pred)
 r2 = r2_score(y_true, y_pred)
 mse_val = mean_squared_error(y_true, y_pred)
 
-print("\n ì„±ëŠ¥ í‰ê°€ ê²°ê³¼:")
+print("\n ¼º´É Æò°¡ °á°ú:")
 print(f" RMSE   : {rmse:.4f}")
 print(f" MAE    : {mae:.4f}")
 print(f" MAPE   : {mape_val:.2f}")
 print(f" SMAPE  : {smape_val:.2f}")
 print(f" NRMSE  : {nrmse_val:.4f}")
-print(f" RÂ²     : {r2:.4f}")
+print(f" R©÷     : {r2:.4f}")
 print(f" MSE    : {mse_val:.6f}")
 scoreCsv = pd.DataFrame([{
     "RMSE": rmse,
@@ -173,10 +175,11 @@ scoreCsv = pd.DataFrame([{
     "MSE": mse_val
 }])
 
-scoreCsv.to_csv("score_results.csv", index=False, encoding="utf-8-sig")
+scoreCsv.to_csv("score_results_withoutSenti.csv", index=False, encoding="utf-8-sig")
 
-#ëª¨ë¸ ë° ìŠ¤ì¼€ì¼ëŸ¬ ì €ì¥
-torch.save(model.state_dict(), "cnn_lstm_model.pth")
-np.save("latest_input.npy", df_daily_scaled.values[-PAST_STEPS:])
+# ¸ğµ¨ ¹× ½ºÄÉÀÏ·¯ ÀúÀå (°¨¼ººĞ¼® Á¦¿Ü ¹öÀü)
+torch.save(model.state_dict(), "cnn_lstm_model_noSenti.pth")
+np.save("latest_input_noSenti.npy", df_daily_scaled.values[-PAST_STEPS:])
 import joblib
-joblib.dump(scaler, "scaler.pkl")
+joblib.dump(scaler, "scaler_noSenti.pkl")
+
